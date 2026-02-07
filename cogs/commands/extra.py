@@ -3,7 +3,7 @@ import discord
 from discord.ext import commands
 import datetime
 import sys
-from discord.ui import Button, View
+from discord.ui import Button, Container, DesignerView, TextDisplay, View
 import psutil
 import time
 from utils.Tools import *
@@ -11,6 +11,7 @@ from discord.ext import commands
 from discord.ext.commands import BucketType, cooldown
 import requests
 from typing import *
+from discord import Color
 from utils import *
 from utils import Paginator, DescriptionEmbedPaginator, FieldPagePaginator, TextPaginator
 from core import Cog, Astroz, Context
@@ -1158,15 +1159,24 @@ Threads : {len(guild.threads)}
   @ignore_check()
   @blacklist_check()
   async def ping(self, ctx):
-    s_id = ctx.guild.shard_id
-    sh = self.bot.get_shard(s_id)
-    embed = discord.Embed(
-      color=self.color)
-    embed.set_author(
-        name=f"Pong | {round(sh.latency * 800)}ms",
-        icon_url=ctx.author.display_avatar.url)
- 
-    await ctx.reply(embed=embed)
+    class PingView(DesignerView):
+      def __init__(self, message: str, color: Color):
+        super().__init__(timeout=30)
+        container = Container(
+          TextDisplay(message),
+          color=color,
+        )
+        self.add_item(container)
+
+    if ctx.guild is not None:
+      shard = self.bot.get_shard(ctx.guild.shard_id)
+      latency_ms = round((shard.latency if shard else self.bot.latency) * 1000)
+    else:
+      latency_ms = round(self.bot.latency * 1000)
+
+    message = f"### Pong\nLatency: `{latency_ms}ms`"
+    view = PingView(message, Color(self.color))
+    await ctx.reply(view=view)
 
   @commands.hybrid_command(name="badges",
                            help="Check what premium badges a user have.",
