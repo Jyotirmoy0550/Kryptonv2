@@ -38,9 +38,9 @@ class Security(Cog):
     async def antinuke_enable(self, ctx: Context):
         own = getExtra(ctx.guild.id)
         owner = own["owners"]
-        data = getanti(ctx.guild.id)
+        data = await getanti(ctx.guild.id)
         d2 = getConfig(ctx.guild.id)
-        event = getHacker(ctx.guild.id)
+        event = await getHacker(ctx.guild.id)
         wled = d2["whitelisted"]
         punish = d2["punishment"]
         antibot = event["antinuke"]["antibot"]
@@ -145,7 +145,7 @@ class Security(Cog):
                 await ctx.reply(embed=embed, mention_author=False)
             else:
                 data = "on"
-                updateanti(ctx.guild.id, data)
+                await updateanti(ctx.guild.id, data)
                 embed2 = discord.Embed(
                     
                     description=
@@ -207,7 +207,7 @@ Punishments:
     async def antinuke_disable(self, ctx: Context):
         own = getExtra(ctx.guild.id)
         owner = own["owners"]
-        data = getanti(ctx.guild.id)
+        data = await getanti(ctx.guild.id)
         d2 = getConfig(ctx.guild.id)
         if ctx.author == ctx.guild.owner or str(ctx.author.id) in owner:   
             if data == "off":
@@ -219,7 +219,7 @@ Punishments:
                 await ctx.reply(embed=emb, mention_author=False)
             else:
                 data = "off"
-                updateanti(ctx.guild.id, data)
+                await updateanti(ctx.guild.id, data)
                 final = discord.Embed(
                     
                     description=
@@ -247,13 +247,13 @@ Punishments:
     @commands.max_concurrency(1, per=commands.BucketType.default, wait=False)
     @commands.guild_only()
     async def antirolecreate(self, ctx):
-        data = getHacker(ctx.guild.id)
+        data = await getHacker(ctx.guild.id)
         own = getExtra(ctx.guild.id)
         owner = own["owners"]
         if ctx.author == ctx.guild.owner or str(ctx.author.id) in owner:   
             if data["antinuke"]["antirole-create"] == True:
                 data["antinuke"]["antirole-create"] = False
-                updateHacker(ctx.guild.id, data)
+                await updateHacker(ctx.guild.id, data)
                 hacker = discord.Embed(
                 color=self.color,
                 description=
@@ -262,7 +262,7 @@ Punishments:
                 await ctx.reply(embed=hacker, mention_author=False)
             elif data["antinuke"]["antirole-create"] == False:
                 data["antinuke"]["antirole-create"] = True
-                updateHacker(ctx.guild.id, data)
+                await updateHacker(ctx.guild.id, data)
                 hacker1 = discord.Embed(
                 color=self.color,
                 description=
@@ -290,13 +290,13 @@ Punishments:
     @commands.max_concurrency(1, per=commands.BucketType.default, wait=False)
     @commands.guild_only()
     async def antiroledelete(self, ctx):
-        data = getHacker(ctx.guild.id)
+        data = await getHacker(ctx.guild.id)
         own = getExtra(ctx.guild.id)
         owner = own["owners"]
         if ctx.author == ctx.guild.owner or str(ctx.author.id) in owner:   
             if data["antinuke"]["antirole-delete"] == True:
                 data["antinuke"]["antirole-delete"] = False
-                updateHacker(ctx.guild.id, data)
+                await updateHacker(ctx.guild.id, data)
                 hacker = discord.Embed(
                 color=self.color,
                 description=
@@ -305,7 +305,7 @@ Punishments:
                 await ctx.reply(embed=hacker, mention_author=False)
             elif data["antinuke"]["antirole-delete"] == False:
                 data["antinuke"]["antirole-delete"] = True
-                updateHacker(ctx.guild.id, data)
+                await updateHacker(ctx.guild.id, data)
                 hacker1 = discord.Embed(
                 color=self.color,
                 description=
@@ -334,13 +334,13 @@ Punishments:
     @commands.max_concurrency(1, per=commands.BucketType.default, wait=False)
     @commands.guild_only()
     async def antiroleupdate(self, ctx):
-        data = getHacker(ctx.guild.id)
+        data = await getHacker(ctx.guild.id)
         own = getExtra(ctx.guild.id)
         owner = own["owners"]
         if ctx.author == ctx.guild.owner or str(ctx.author.id) in owner:   
             if data["antinuke"]["antirole-update"] == True:
                 data["antinuke"]["antirole-update"] = False
-                updateHacker(ctx.guild.id, data)
+                await updateHacker(ctx.guild.id, data)
                 hacker = discord.Embed(
                 color=self.color,
                 description=
@@ -349,7 +349,7 @@ Punishments:
                 await ctx.reply(embed=hacker, mention_author=False)
             elif data["antinuke"]["antirole-update"] == False:
                 data["antinuke"]["antirole-update"] = True
-                updateHacker(ctx.guild.id, data)
+                await updateHacker(ctx.guild.id, data)
                 hacker1 = discord.Embed(
                 color=self.color,
                 description=
@@ -376,13 +376,13 @@ Punishments:
     @commands.max_concurrency(1, per=commands.BucketType.default, wait=False)
     @commands.guild_only()
     async def antichannelcreate(self, ctx):
-        data = getHacker(ctx.guild.id)
+        data = await getHacker(ctx.guild.id)
         own = getExtra(ctx.guild.id)
         owner = own["owners"]
         if ctx.author == ctx.guild.owner or str(ctx.author.id) in owner:   
             if data["antinuke"]["antichannel-create"] == True:
                 data["antinuke"]["antichannel-create"] = False
-                updateHacker(ctx.guild.id, data)
+                await updateHacker(ctx.guild.id, data)
                 hacker = discord.Embed(
                 color=self.color,
                 description=
@@ -391,7 +391,7 @@ Punishments:
                 await ctx.reply(embed=hacker, mention_author=False)
             elif data["antinuke"]["antichannel-create"] == False:
                 data["antinuke"]["antichannel-create"] = True
-                updateHacker(ctx.guild.id, data)
+                await updateHacker(ctx.guild.id, data)
                 hacker1 = discord.Embed(
                 color=self.color,
                 description=
@@ -418,13 +418,13 @@ Punishments:
     @commands.max_concurrency(1, per=commands.BucketType.default, wait=False)
     @commands.guild_only()
     async def antichanneldelete(self, ctx):
-        data = getHacker(ctx.guild.id)
+        data = await getHacker(ctx.guild.id)
         own = getExtra(ctx.guild.id)
         owner = own["owners"]
         if ctx.author == ctx.guild.owner or str(ctx.author.id) in owner:   
             if data["antinuke"]["antichannel-delete"] == True:
                 data["antinuke"]["antichannel-delete"] = False
-                updateHacker(ctx.guild.id, data)
+                await updateHacker(ctx.guild.id, data)
                 hacker = discord.Embed(
                 color=self.color,
                 description=
@@ -434,7 +434,7 @@ Punishments:
                
             elif data["antinuke"]["antichannel-delete"] == False:
                 data["antinuke"]["antichannel-delete"] = True
-                updateHacker(ctx.guild.id, data)
+                await updateHacker(ctx.guild.id, data)
                 hacker1 = discord.Embed(
                 color=self.color,
                 description=
@@ -461,13 +461,13 @@ Punishments:
     @commands.max_concurrency(1, per=commands.BucketType.default, wait=False)
     @commands.guild_only()
     async def antichannelupdate(self, ctx):
-        data = getHacker(ctx.guild.id)
+        data = await getHacker(ctx.guild.id)
         own = getExtra(ctx.guild.id)
         owner = own["owners"]
         if ctx.author == ctx.guild.owner or str(ctx.author.id) in owner:   
             if data["antinuke"]["antichannel-update"] == True:
                 data["antinuke"]["antichannel-update"] = False
-                updateHacker(ctx.guild.id, data)
+                await updateHacker(ctx.guild.id, data)
                 hacker = discord.Embed(
                 color=self.color,
                 description=
@@ -476,7 +476,7 @@ Punishments:
                 await ctx.reply(embed=hacker, mention_author=False)
             elif data["antinuke"]["antichannel-update"] == False:
                 data["antinuke"]["antichannel-update"] = True
-                updateHacker(ctx.guild.id, data)
+                await updateHacker(ctx.guild.id, data)
                 hacker1 = discord.Embed(
                 color=self.color,
                 description=
@@ -505,13 +505,13 @@ Punishments:
     @commands.max_concurrency(1, per=commands.BucketType.default, wait=False)
     @commands.guild_only()
     async def antiban(self, ctx):
-        data = getHacker(ctx.guild.id)
+        data = await getHacker(ctx.guild.id)
         own = getExtra(ctx.guild.id)
         owner = own["owners"]
         if ctx.author == ctx.guild.owner or str(ctx.author.id) in owner:   
             if data["antinuke"]["antiban"] == True:
                 data["antinuke"]["antiban"] = False
-                updateHacker(ctx.guild.id, data)
+                await updateHacker(ctx.guild.id, data)
                 hacker = discord.Embed(
                 color=self.color,
                 description=
@@ -521,7 +521,7 @@ Punishments:
                
             elif data["antinuke"]["antiban"] == False:
                 data["antinuke"]["antiban"] = True
-                updateHacker(ctx.guild.id, data)
+                await updateHacker(ctx.guild.id, data)
                 hacker1 = discord.Embed(
                 color=self.color,
                 description=
@@ -551,13 +551,13 @@ Punishments:
     @commands.max_concurrency(1, per=commands.BucketType.default, wait=False)
     @commands.guild_only()
     async def antikick(self, ctx):
-        data = getHacker(ctx.guild.id)
+        data = await getHacker(ctx.guild.id)
         own = getExtra(ctx.guild.id)
         owner = own["owners"]
         if ctx.author == ctx.guild.owner or str(ctx.author.id) in owner:   
             if data["antinuke"]["antikick"] == True:
                 data["antinuke"]["antikick"] = False
-                updateHacker(ctx.guild.id, data)
+                await updateHacker(ctx.guild.id, data)
                 hacker = discord.Embed(
                 color=self.color,
                 description=
@@ -567,7 +567,7 @@ Punishments:
                 
             elif data["antinuke"]["antikick"] == False:
                 data["antinuke"]["antikick"] = True
-                updateHacker(ctx.guild.id, data)
+                await updateHacker(ctx.guild.id, data)
                 hacker1 = discord.Embed(
                 color=self.color,
                 description=
@@ -595,13 +595,13 @@ Punishments:
     @commands.max_concurrency(1, per=commands.BucketType.default, wait=False)
     @commands.guild_only()
     async def antiwebhook(self, ctx):
-        data = getHacker(ctx.guild.id)
+        data = await getHacker(ctx.guild.id)
         own = getExtra(ctx.guild.id)
         owner = own["owners"]
         if ctx.author == ctx.guild.owner or str(ctx.author.id) in owner:   
             if data["antinuke"]["antiwebhook"] == True:
                 data["antinuke"]["antiwebhook"] = False
-                updateHacker(ctx.guild.id, data)
+                await updateHacker(ctx.guild.id, data)
                 hacker = discord.Embed(
                 color=self.color,
                 description=
@@ -611,7 +611,7 @@ Punishments:
                
             elif data["antinuke"]["antiwebhook"] == False:
                 data["antinuke"]["antiwebhook"] = True
-                updateHacker(ctx.guild.id, data)
+                await updateHacker(ctx.guild.id, data)
                 hacker1 = discord.Embed(
                 color=self.color,
                 description=
@@ -640,13 +640,13 @@ Punishments:
     @commands.max_concurrency(1, per=commands.BucketType.default, wait=False)
     @commands.guild_only()
     async def antibot(self, ctx):
-        data = getHacker(ctx.guild.id)
+        data = await getHacker(ctx.guild.id)
         own = getExtra(ctx.guild.id)
         owner = own["owners"]
         if ctx.author == ctx.guild.owner or str(ctx.author.id) in owner:  
             if data["antinuke"]["antibot"] == True:
                 data["antinuke"]["antibot"] = False
-                updateHacker(ctx.guild.id, data)
+                await updateHacker(ctx.guild.id, data)
                 hacker = discord.Embed(
                 color=self.color,
                 description=
@@ -656,7 +656,7 @@ Punishments:
                 
             elif data["antinuke"]["antibot"] == False:
                 data["antinuke"]["antibot"] = True
-                updateHacker(ctx.guild.id, data)
+                await updateHacker(ctx.guild.id, data)
                 hacker1 = discord.Embed(
                 color=self.color,
                 description=
@@ -684,13 +684,13 @@ Punishments:
     @commands.max_concurrency(1, per=commands.BucketType.default, wait=False)
     @commands.guild_only()
     async def antiserver(self, ctx):
-        data = getHacker(ctx.guild.id)
+        data = await getHacker(ctx.guild.id)
         own = getExtra(ctx.guild.id)
         owner = own["owners"]
         if ctx.author == ctx.guild.owner or str(ctx.author.id) in owner: 
             if data["antinuke"]["antiserver"] == True:
                 data["antinuke"]["antiserver"] = False
-                updateHacker(ctx.guild.id, data)
+                await updateHacker(ctx.guild.id, data)
                 hacker = discord.Embed(
                 color=self.color,
                 description=
@@ -700,7 +700,7 @@ Punishments:
                 
             elif data["antinuke"]["antiserver"] == False:
                 data["antinuke"]["antiserver"] = True
-                updateHacker(ctx.guild.id, data)
+                await updateHacker(ctx.guild.id, data)
                 hacker1 = discord.Embed(
                 color=self.color,
                 description=
@@ -730,13 +730,13 @@ Punishments:
     @commands.max_concurrency(1, per=commands.BucketType.default, wait=False)
     @commands.guild_only()
     async def antiping(self, ctx):
-        data = getHacker(ctx.guild.id)
+        data = await getHacker(ctx.guild.id)
         own = getExtra(ctx.guild.id)
         owner = own["owners"]
         if ctx.author == ctx.guild.owner or str(ctx.author.id) in owner:  
             if data["antinuke"]["antiping"] == True:
                 data["antinuke"]["antiping"] = False
-                updateHacker(ctx.guild.id, data)
+                await updateHacker(ctx.guild.id, data)
                 hacker = discord.Embed(
                 color=self.color,
                 description=
@@ -746,7 +746,7 @@ Punishments:
                 
             elif data["antinuke"]["antiping"] == False:
                 data["antinuke"]["antiping"] = True
-                updateHacker(ctx.guild.id, data)
+                await updateHacker(ctx.guild.id, data)
                 hacker1 = discord.Embed(
                 color=self.color,
                 description=
@@ -776,13 +776,13 @@ Punishments:
     @commands.max_concurrency(1, per=commands.BucketType.default, wait=False)
     @commands.guild_only()
     async def antiemojidelete(self, ctx):
-        data = getHacker(ctx.guild.id)
+        data = await getHacker(ctx.guild.id)
         own = getExtra(ctx.guild.id)
         owner = own["owners"]
         if ctx.author == ctx.guild.owner or str(ctx.author.id) in owner:  
             if data["antinuke"]["antiemoji-delete"] == True:
                 data["antinuke"]["antiemoji-delete"] = False
-                updateHacker(ctx.guild.id, data)
+                await updateHacker(ctx.guild.id, data)
                 hacker = discord.Embed(
                 color=self.color,
                 description=
@@ -792,7 +792,7 @@ Punishments:
                
             elif data["antinuke"]["antiemoji-delete"] == False:
                 data["antinuke"]["antiemoji-delete"] = True
-                updateHacker(ctx.guild.id, data)
+                await updateHacker(ctx.guild.id, data)
                 hacker1 = discord.Embed(
                 color=self.color,
                 description=
@@ -822,13 +822,13 @@ Punishments:
     @commands.max_concurrency(1, per=commands.BucketType.default, wait=False)
     @commands.guild_only()
     async def antiemojicreate(self, ctx):
-        data = getHacker(ctx.guild.id)
+        data = await getHacker(ctx.guild.id)
         own = getExtra(ctx.guild.id)
         owner = own["owners"]
         if ctx.author == ctx.guild.owner or str(ctx.author.id) in owner:  
             if data["antinuke"]["antiemoji-create"] == True:
                 data["antinuke"]["antiemoji-create"] = False
-                updateHacker(ctx.guild.id, data)
+                await updateHacker(ctx.guild.id, data)
                 hacker = discord.Embed(
                 color=self.color,
                 description=
@@ -838,7 +838,7 @@ Punishments:
                 
             elif data["antinuke"]["antiemoji-create"] == False:
                 data["antinuke"]["antiemoji-create"] = True
-                updateHacker(ctx.guild.id, data)
+                await updateHacker(ctx.guild.id, data)
                 hacker1 = discord.Embed(
                 color=self.color,
                 description=
@@ -867,13 +867,13 @@ Punishments:
     @commands.max_concurrency(1, per=commands.BucketType.default, wait=False)
     @commands.guild_only()
     async def antiemojiupdate(self, ctx):
-        data = getHacker(ctx.guild.id)
+        data = await getHacker(ctx.guild.id)
         own = getExtra(ctx.guild.id)
         owner = own["owners"]
         if ctx.author == ctx.guild.owner or str(ctx.author.id) in owner:  
             if data["antinuke"]["antiemoji-update"] == True:
                 data["antinuke"]["antiemoji-update"] = False
-                updateHacker(ctx.guild.id, data)
+                await updateHacker(ctx.guild.id, data)
                 hacker = discord.Embed(
                 color=self.color,
                 description=
@@ -883,7 +883,7 @@ Punishments:
                
             elif data["antinuke"]["antiemoji-update"] == False:
                 data["antinuke"]["antiemoji-update"] = True
-                updateHacker(ctx.guild.id, data)
+                await updateHacker(ctx.guild.id, data)
                 hacker1 = discord.Embed(
                 color=self.color,
                 description=
@@ -910,13 +910,13 @@ Punishments:
     @commands.max_concurrency(1, per=commands.BucketType.default, wait=False)
     @commands.guild_only()
     async def antimemberroleupdate(self, ctx):
-        data = getHacker(ctx.guild.id)
+        data = await getHacker(ctx.guild.id)
         own = getExtra(ctx.guild.id)
         owner = own["owners"]
         if ctx.author == ctx.guild.owner or str(ctx.author.id) in owner:  
             if data["antinuke"]["antimemberrole-update"] == True:
                 data["antinuke"]["antimemberrole-update"] = False
-                updateHacker(ctx.guild.id, data)
+                await updateHacker(ctx.guild.id, data)
                 hacker = discord.Embed(
                 color=self.color,
                 description=
@@ -926,7 +926,7 @@ Punishments:
                
             elif data["antinuke"]["antimemberrole-update"] == False:
                 data["antinuke"]["antimemberrole-update"] = True
-                updateHacker(ctx.guild.id, data)
+                await updateHacker(ctx.guild.id, data)
                 hacker1 = discord.Embed(
                 color=self.color,
                 description=
@@ -956,8 +956,8 @@ Punishments:
     async def antinuke_show(self, ctx: Context):
         own = getExtra(ctx.guild.id)
         owner = own["owners"]
-        data = getanti(ctx.guild.id)
-        event = getHacker(ctx.guild.id)
+        data = await getanti(ctx.guild.id)
+        event = await getHacker(ctx.guild.id)
         d2 = getConfig(ctx.guild.id)
         wled = d2["whitelisted"]
         punish = d2["punishment"]

@@ -49,8 +49,8 @@ class antipinginv(Cog):
           astroz = f'<@{self.client.user.id}>'
           try:
             data = getConfig(message.guild.id)
-            anti = getanti(message.guild.id)
-            event= getHacker(message.guild.id)
+            anti = await getanti(message.guild.id)
+            event= await getHacker(message.guild.id)
             antievent = event["antinuke"]["antiping"]
             prefix = data["prefix"]
             wled = data["whitelisted"]

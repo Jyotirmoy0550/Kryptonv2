@@ -40,7 +40,7 @@ class member_update(commands.Cog):
         await self.client.wait_until_ready()
         guild = after.guild
         data = getConfig(guild.id)
-        anti = getanti(guild.id)
+        anti = await getanti(guild.id)
         punishment = data["punishment"]
         wlrole = data['wlrole']  
         wled = data["whitelisted"]
