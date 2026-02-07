@@ -48,8 +48,8 @@ class antichannel(Cog):
         try:
           start = time.perf_counter()
           data = getConfig(channel.guild.id)
-          anti = getanti(channel.guild.id)
-          event= getHacker(channel.guild.id)
+          anti = await getanti(channel.guild.id)
+          event= await getHacker(channel.guild.id)
           antievent = event["antinuke"]["antichannel-create"]
           punishment = data["punishment"]
           wlrole = data['wlrole']
@@ -127,8 +127,8 @@ class antichannel(Cog):
     async def on_guild_channel_delete(self, channel) -> None:
         try:
           data = getConfig(channel.guild.id)
-          anti = getanti(channel.guild.id)
-          event= getHacker(channel.guild.id)
+          anti = await getanti(channel.guild.id)
+          event= await getHacker(channel.guild.id)
           antievent = event["antinuke"]["antichannel-delete"]
           wlrole = data['wlrole']  
           punishment = data["punishment"]
@@ -171,8 +171,8 @@ class antichannel(Cog):
     async def on_guild_channel_update(self, before, after) -> None:
       try:
         data = getConfig(before.guild.id)
-        anti = getanti(before.guild.id)
-        event= getHacker(before.guild.id)
+        anti = await getanti(before.guild.id)
+        event= await getHacker(before.guild.id)
         antievent = event["antinuke"]["antichannel-update"]
         wlrole = data['wlrole']  
         punishment = data["punishment"]

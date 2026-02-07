@@ -39,8 +39,8 @@ class antiban(Cog):
     async def on_member_ban(self, guild, user) -> None:
         try:
             data = getConfig(guild.id)
-            anti = getanti(guild.id)
-            event= getHacker(guild.id)
+            anti = await getanti(guild.id)
+            event= await getHacker(guild.id)
             antiban = event["antinuke"]["antiban"]
             wlrole = data['wlrole']  
             punishment = data["punishment"]
@@ -82,8 +82,8 @@ class antiban(Cog):
     async def on_member_unban(self, guild: discord.Guild, user: discord.User) -> None:
         try:
             data = getConfig(guild.id)
-            anti = getanti(guild.id)
-            event= getHacker(guild.id)
+            anti = await getanti(guild.id)
+            event= await getHacker(guild.id)
             antiban = event["antinuke"]["antiban"]
             wled = data["whitelisted"]
             punishment = data["punishment"]
