@@ -3,7 +3,6 @@ from discord.ext import commands
 from utils.Tools import *
 from discord import *
 import os
-#os.system("pip install Pillow")
 from utils.config import OWNER_IDS, No_Prefix
 import json, discord
 from typing import *
@@ -303,4 +302,3 @@ class Owner(commands.Cog):
     g = self.client.get_guild(guild_id)
     await g.leave()
     return await ctx.send(f"Left {g.name}")
-

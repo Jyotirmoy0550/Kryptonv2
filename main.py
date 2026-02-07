@@ -1,8 +1,4 @@
 import os
-os.system("pip install tasksio && pip install httpx && pip install psutil && pip install requests && pip install git+https://github.com/ItzYourHacker/Wavelink")
-os.system("pip install git+https://github.com/ItzYourHacker/jishaku")
-os.system("pip install git+https://github.com/Rapptz/discord-ext-menus")
-#os.system("pip install git+https://github.com/Rapptz/discord.py")
 from core.Astroz import Astroz
 import asyncio
 import jishaku, cogs

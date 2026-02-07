@@ -1,6 +1,5 @@
 import discord
-import os 
-#os.system("pip install git+https://github.com/openai/openai-python")
+import os
 from discord.ext import commands
 import aiohttp
 import json 

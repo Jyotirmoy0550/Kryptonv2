@@ -3,7 +3,7 @@ import discord
 from discord.ext import commands
 import datetime
 import sys
-from discord.ui import Button, View
+from discord.ui import Button, Container, DesignerView, TextDisplay, View
 import psutil
 import time
 from utils.Tools import *
@@ -11,6 +11,7 @@ from discord.ext import commands
 from discord.ext.commands import BucketType, cooldown
 import requests
 from typing import *
+from discord import Color
 from utils import *
 from utils import Paginator, DescriptionEmbedPaginator, FieldPagePaginator, TextPaginator
 from core import Cog, Astroz, Context
@@ -108,19 +109,41 @@ class Extra(commands.Cog):
     embed = discord.Embed(description=f"<a:Krypton_Loading:1103862877502308432> **Fetching {self.bot.user.name} statistics...**", color=self.color)
     ok = await ctx.send(embed=embed)
       
-         
-    hacker = discord.utils.get(self.bot.users, id=289100850285117460)  
-    hasan =  discord.utils.get(self.bot.users, id=301502732664307716)  
-    ############
-    coding = discord.utils.get(self.bot.users, id=973253132534554705)
-    sumit =  discord.utils.get(self.bot.users, id=259176352748404736)  
-    harsh =  discord.utils.get(self.bot.users, id=1128714830870745128)  
-    #########
-    alone =  discord.utils.get(self.bot.users, id=735003878424313908)
-    alone2 =  discord.utils.get(self.bot.users, id=323429313032486922)
-    sandeep =  discord.utils.get(self.bot.users, id=1031105449736540200)
+    async def _resolve_user(user_id: int):
+      user = self.bot.get_user(user_id)
+      if user is not None:
+        return user
+      try:
+        return await self.bot.fetch_user(user_id)
+      except (discord.NotFound, discord.HTTPException):
+        return None
+
+    def _format_user(user: Optional[discord.User], user_id: int) -> str:
+      display = f"{user}" if user is not None else f"<@{user_id}>"
+      return f"[{display}](https://discord.com/users/{user_id})"
+
+    hacker_id = 289100850285117460
+    hasan_id = 301502732664307716
+    coding_id = 973253132534554705
+    sumit_id = 259176352748404736
+    harsh_id = 1128714830870745128
+    alone_id = 735003878424313908
+    alone2_id = 323429313032486922
+    sandeep_id = 1031105449736540200
+
+    hacker = await _resolve_user(hacker_id)
+    hasan = await _resolve_user(hasan_id)
+    coding = await _resolve_user(coding_id)
+    sumit = await _resolve_user(sumit_id)
+    harsh = await _resolve_user(harsh_id)
+    alone = await _resolve_user(alone_id)
+    alone2 = await _resolve_user(alone2_id)
+    sandeep = await _resolve_user(sandeep_id)
 ################################
     bot = self.bot
+    if ctx.guild is None:
+      await ok.edit(embed=discord.Embed(description="This command can only be used in a server.", color=self.color))
+      return
     s_id = ctx.guild.shard_id
     sh = self.bot.get_shard(s_id)
     count = 0
@@ -152,23 +175,23 @@ class Extra(commands.Cog):
     embed.add_field(
       name="**Developer(s)**",
       value=
-      f"[{hacker}](https://discord.com/users/{hacker.id}), [{hasan}](https://discord.com/users/{hasan.id}) , [{harsh}](https://discord.com/users/{harsh.id})",
+      f"{_format_user(hacker, hacker_id)}, {_format_user(hasan, hasan_id)} , {_format_user(harsh, harsh_id)}",
       inline=False)
     embed.add_field(
       name="**Web Developer(s)**",
       value=
-      f"[{coding}](https://discord.com/users/{coding.id})",
+      f"{_format_user(coding, coding_id)}",
       inline=False)
     
     embed.add_field(
      name="**Owner(s)**",
     value=
-    f"[{sumit}](https://discord.com/users/{sumit.id}) , [{sandeep}](https://discord.com/users/{sandeep.id})",
+    f"{_format_user(sumit, sumit_id)} , {_format_user(sandeep, sandeep_id)}",
       inline=False)
     embed.add_field(
      name="**Team(s)**",
     value=
-    f"[{alone}](https://discord.com/users/{alone.id}), [{alone2}](https://discord.com/users/{alone2.id})",
+    f"{_format_user(alone, alone_id)}, {_format_user(alone2, alone2_id)}",
       inline=False)
   
   
@@ -1136,15 +1159,23 @@ Threads : {len(guild.threads)}
   @ignore_check()
   @blacklist_check()
   async def ping(self, ctx):
-    s_id = ctx.guild.shard_id
-    sh = self.bot.get_shard(s_id)
-    embed = discord.Embed(
-      color=self.color)
-    embed.set_author(
-        name=f"Pong | {round(sh.latency * 800)}ms",
-        icon_url=ctx.author.display_avatar.url)
- 
-    await ctx.reply(embed=embed)
+    class PingView(DesignerView):
+      def __init__(self, message: str):
+        super().__init__(timeout=30)
+        container = Container(
+          TextDisplay(message),
+        )
+        self.add_item(container)
+
+    if ctx.guild is not None:
+      shard = self.bot.get_shard(ctx.guild.shard_id)
+      latency_ms = round((shard.latency if shard else self.bot.latency) * 1000)
+    else:
+      latency_ms = round(self.bot.latency * 1000)
+
+    message = f"### Pong\n`{latency_ms}ms`"
+    view = PingView(message)
+    await ctx.reply(view=view)
 
   @commands.hybrid_command(name="badges",
                            help="Check what premium badges a user have.",
