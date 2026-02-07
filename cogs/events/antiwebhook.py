@@ -39,8 +39,8 @@ class antiwebhook(Cog):
     async def on_webhooks_update(self, channel) -> None:
         try:
             data = getConfig(channel.guild.id)
-            anti = getanti(channel.guild.id)
-            event= getHacker(channel.guild.id)
+            anti = await getanti(channel.guild.id)
+            event= await getHacker(channel.guild.id)
             antievent = event["antinuke"]["antiwebhook"]
             punishment = data["punishment"]
             wled = data["whitelisted"]

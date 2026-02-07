@@ -15,8 +15,8 @@ class antibot(Cog):
     async def on_member_join(self, member) -> None:
       try:
         data = getConfig(member.guild.id)
-        anti = getanti(member.guild.id)
-        event= getHacker(member.guild.id)
+        anti = await getanti(member.guild.id)
+        event= await getHacker(member.guild.id)
         antibot = event["antinuke"]["antibot"]
         wlrole = data['wlrole']  
         punishment = data["punishment"]

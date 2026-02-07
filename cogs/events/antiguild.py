@@ -38,8 +38,8 @@ class antiguild(Cog):
     async def on_guild_update(self, before, after) -> None:
         try:
             data = getConfig(before.id)
-            anti = getanti(before.id)
-            event= getHacker(before.guild.id)
+            anti = await getanti(before.id)
+            event= await getHacker(before.guild.id)
             antievent = event["antinuke"]["antiserver"]
             punishment = data["punishment"]
             wled = data["whitelisted"]
