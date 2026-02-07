@@ -36,8 +36,8 @@ class antiemostick(Cog):
     async def on_guild_emojis_update(self, guild, before, after) -> None:
       try:
         data = getConfig(guild.id)
-        anti = getanti(guild.id)
-        event= getHacker(guild.id)
+        anti = await getanti(guild.id)
+        event= await getHacker(guild.id)
         antievent = event["antinuke"]["antiemoji-create"]
         punishment = data["punishment"]
         wled = data["whitelisted"]

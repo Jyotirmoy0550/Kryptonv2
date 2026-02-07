@@ -38,8 +38,8 @@ class antikick(Cog):
     async def on_member_remove(self, member) -> None:
         try:
             data = getConfig(member.guild.id)
-            anti = getanti(member.guild.id)
-            event= getHacker(member.guild.id)
+            anti = await getanti(member.guild.id)
+            event= await getHacker(member.guild.id)
             antikick = event["antinuke"]["antikick"]
             punishment = data["punishment"]
             wlrole = data['wlrole']  

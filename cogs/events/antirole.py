@@ -37,9 +37,9 @@ class antirole(Cog):
     @commands.Cog.listener()
     async def on_guild_role_create(self, role) -> None:
         try:
-          anti = getanti(role.guild.id)
+          anti = await getanti(role.guild.id)
           data = getConfig(role.guild.id)
-          event= getHacker(role.guild.id)
+          event= await getHacker(role.guild.id)
           antievent = event["antinuke"]["antirole-create"]
           punishment = data["punishment"]
           wled = data["whitelisted"]
@@ -111,9 +111,9 @@ class antirole(Cog):
     @commands.Cog.listener()
     async def on_guild_role_delete(self, role) -> None:
         try:
-          anti = getanti(role.guild.id)
+          anti = await getanti(role.guild.id)
           data = getConfig(role.guild.id)
-          event = getHacker(role.guild.id)
+          event = await getHacker(role.guild.id)
           antievent = event["antinuke"]["antirole-delete"]
           punishment = data["punishment"]
           wled = data["whitelisted"]
@@ -169,8 +169,8 @@ class antirole(Cog):
     async def on_guild_role_update(self, before, after) -> None:
       try:
         data = getConfig(before.guild.id)
-        anti = getanti(before.guild.id)
-        event = getHacker(before.role.guild.id)
+        anti = await getanti(before.guild.id)
+        event = await getHacker(before.role.guild.id)
         antievent = event["antinuke"]["antirole-update"]
         punishment = data["punishment"]
         wled = data["whitelisted"]
