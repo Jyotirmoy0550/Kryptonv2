@@ -1,6 +1,5 @@
 from __future__ import annotations
 import os 
-#os.system("pip install git+https://github.com/Rapptz/discord-ext-menus")
 import discord
 from discord.ext import menus
 from discord.ext import commands

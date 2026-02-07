@@ -1,5 +1,4 @@
 import os
-#os.system("pip install tasksio")
 import discord
 from discord.ext import commands
 from utils.Tools import *
